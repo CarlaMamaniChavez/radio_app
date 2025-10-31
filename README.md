@@ -5,6 +5,7 @@
 __DOCENTE: MSc Carla Vanesa Mamani Chavez__
 
 ## 📁 Estructura del proyecto
+```
 radio_app/
 │
 ├── LogicaBackend.py
@@ -16,7 +17,7 @@ radio_app/
 ├── requirements.txt
 ├── respuesta.json
 ├── tags.json
-
+```
 ### Instrucciones
 ## PARTE 1 - FLASK
 Completar los siguientes requerimientos en el proyecto
