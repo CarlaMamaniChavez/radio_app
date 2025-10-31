@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Radio Browser Cards</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header>
+    <h1>🎶 Radios en línea</h1>
+    <p>Explora estaciones por género musical</p>
+  </header>
+  <!--Agregar la seccion developer para devolver el nombre del dev que se envia como parametro desde la ruta-->
+  <main>
+    {% for tag, stations in tag_stations.items() %}
+    <section class="tag-section">
+      <h2>{{ tag }}</h2>
+      <div class="card-grid">
+        {% for st in stations %}
+        <div class="card">
+          <img src="{{ st.favicon or 'https://via.placeholder.com/150?text=No+Logo' }}" alt="Logo">
+          <div class="card-info">
+            <h3>{{ st.name }}</h3>
+            <p class="muted">{{ st.country or 'Desconocido' }}</p>
+            <audio controls preload="none">
+              <source src="{{ st.url_resolved or st.url }}" type="audio/mpeg">
+              Tu navegador no soporta audio HTML5.
+            </audio>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+  </main>
+
+  <footer>
+    <p>Datos obtenidos de <a href="https://www.radio-browser.info" target="_blank">Radio Browser API</a></p>
+  </footer>
+</body>
+</html>
