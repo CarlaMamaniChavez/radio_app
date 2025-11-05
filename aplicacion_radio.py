@@ -77,6 +77,22 @@ def pick_stream(station):
     """
     return station.get("url_resolved") or station.get("url")
 
+def get_stations_by_tags(tags):
+    """
+    Obtiene estaciones agrupadas por tags.
+    
+    Args:
+        tags: Lista de tags/géneros musicales
+        
+    Returns:
+        Diccionario con tags como claves y listas de estaciones como valores
+    """
+    tag_stations = {}
+    for tag in tags:
+        data = rb_get("/stations/search", {"tag": tag, "limit": 4, "hidebroken": "true"})
+        tag_stations[tag.capitalize()] = data
+    return tag_stations
+
 # Rutas de Flask
 
 @app.route("/dev/<nombre_dev>")
@@ -92,12 +108,7 @@ def index_dev(nombre_dev):
     """
     # Tags más comunes para mostrar
     tags = ["rock", "pop", "jazz", "classical"]
-    tag_stations = {}
-    
-    # Obtener estaciones para cada tag
-    for tag in tags:
-        data = rb_get("/stations/search", {"tag": tag, "limit": 4, "hidebroken": "true"})
-        tag_stations[tag.capitalize()] = data
+    tag_stations = get_stations_by_tags(tags)
     
     return render_template("index.html", tag_stations=tag_stations, developer=nombre_dev)
 
@@ -111,12 +122,7 @@ def index():
     """
     # Tags más comunes para mostrar
     tags = ["rock", "pop", "jazz", "classical"]
-    tag_stations = {}
-    
-    # Obtener estaciones para cada tag
-    for tag in tags:
-        data = rb_get("/stations/search", {"tag": tag, "limit": 4, "hidebroken": "true"})
-        tag_stations[tag.capitalize()] = data
+    tag_stations = get_stations_by_tags(tags)
     
     return render_template("index.html", tag_stations=tag_stations, developer="Desarrollador")
 

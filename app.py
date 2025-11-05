@@ -16,16 +16,22 @@ def rb_get(path, params=None):
         except Exception:
             continue
     return []
+
+def get_stations_by_tags(tags):
+    """Obtiene estaciones agrupadas por tags"""
+    tag_stations = {}
+    for tag in tags:
+        data = rb_get("/stations/search", {"tag": tag, "limit": 4, "hidebroken": "true"})
+        tag_stations[tag.capitalize()] = data
+    return tag_stations
+
 #Sobrecargar la funcion index para agregar el nombre del desarrollador por parametro
 #ruta -> /dev/<nmbre_dev>
 @app.route("/dev/<nombre_dev>")
 def index_dev(nombre_dev):
     # Agregar los tags más comunes a tu preferencia
     tags = ["rock", "pop", "jazz", "classical"]
-    tag_stations = {}
-    for tag in tags:
-        data = rb_get("/stations/search", {"tag": tag, "limit": 4, "hidebroken": "true"})
-        tag_stations[tag.capitalize()] = data
+    tag_stations = get_stations_by_tags(tags)
     #enviar el nombre del dev por parametro para consumir por HTML
     return render_template("index.html", tag_stations=tag_stations, developer=nombre_dev)
 
@@ -33,10 +39,7 @@ def index_dev(nombre_dev):
 def index():
     # Agregar los tags más comunes a tu preferencia
     tags = ["rock", "pop", "jazz", "classical"]
-    tag_stations = {}
-    for tag in tags:
-        data = rb_get("/stations/search", {"tag": tag, "limit": 4, "hidebroken": "true"})
-        tag_stations[tag.capitalize()] = data
+    tag_stations = get_stations_by_tags(tags)
     #enviar el nombre del dev por parametro para consumir por HTML
     return render_template("index.html", tag_stations=tag_stations, developer="Desarrollador")
 
