@@ -1,8 +1,4 @@
-# API Radio Brower INFO - Segundo Parcial
-## UNIVERSIDAD PUBLICA DEL ALTO
-## CARRERA INGENIERIA DE SISTEMAS
-## MATERIA TECNOLOGIAS EMERGENTES II
-__DOCENTE: MSc Carla Vanesa Mamani Chavez__
+
 
 ## 📁 Estructura del proyecto
 ```
