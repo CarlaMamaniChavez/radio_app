@@ -11,6 +11,9 @@
     <p>Explora estaciones por género musical</p>
   </header>
   <!--Agregar la seccion developer para devolver el nombre del dev que se envia como parametro desde la ruta-->
+  <section class="developer-section">
+    <p>Desarrollado por: <strong>{{ developer }}</strong></p>
+  </section>
   <main>
     {% for tag, stations in tag_stations.items() %}
     <section class="tag-section">
